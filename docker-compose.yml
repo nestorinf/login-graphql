@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  ms-node-login-graphql:
+    restart: always
+    build:
+      context: .
+      dockerfile: ./DockerFiles/development.Dockerfile
+    environment:
+      PORT: 3500
+      #MONGO_URL: "mongodb://dbmongo:27017/test"
+    ports:
+      - 3500:3500
+    volumes:
+      - .:/usr/src # Nota, Esto aplica solo para desarrollo en ambiente de producción se debe comentar #
+      - /usr/src/node_modules # esto no me sobreescribe
+    networks:
+      - network-api
+networks:
+  network-api:
+     external: true
