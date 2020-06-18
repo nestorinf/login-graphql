@@ -7,10 +7,10 @@ type User{
     avatar: String
 }
 
-type Query {
+extend type Query {
     login: [User]
 }
 
-type Mutation {
+extend type Mutation {
     loginIn(email: String!, password: String!) : User
 }

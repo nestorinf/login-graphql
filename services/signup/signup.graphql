@@ -1,0 +1,25 @@
+type Users {
+     _id: ID!,
+    name: String!
+    username: String!
+    email: String!
+    password: String!
+    avatar: String
+}
+
+
+input InputUser {
+    name: String!
+    username: String!
+    email: String!
+    password: String!
+    avatar: String!
+}
+
+extend type Query {
+    getsignUp: [Users]
+}
+
+extend type Mutation {
+    singnUp(input: InputUser!) : [Users]
+}
