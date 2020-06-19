@@ -1,12 +1,11 @@
-type Users {
-     _id: ID!,
-    name: String!
-    username: String!
+
+type UserRegister {
+    name: String
+    username: String
     email: String!
     password: String!
-    avatar: String
+    avatar: String!
 }
-
 
 input InputUser {
     name: String!
@@ -17,9 +16,9 @@ input InputUser {
 }
 
 extend type Query {
-    getsignUp: [Users]
+    getsignUp: [UserRegister]
 }
 
 extend type Mutation {
-    singnUp(input: InputUser!) : [Users]
+    singnUp(input: InputUser!) : [UserRegister]
 }

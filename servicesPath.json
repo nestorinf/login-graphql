@@ -1,0 +1,8 @@
+[
+    {
+        "login":  "./services/login/resolvers"
+    },
+    {
+        "signUp": "./services/signup/resolvers"
+    }
+]

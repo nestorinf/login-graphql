@@ -1,16 +1,15 @@
-type User{
+type UserLogin{
     _id: ID!,
     name: String!
     username: String!
     email: String!
-    password: String!
     avatar: String
 }
 
 extend type Query {
-    login: [User]
+    login: [UserLogin]
 }
 
 extend type Mutation {
-    loginIn(email: String!, password: String!) : User
+    loginIn(email: String!, password: String!) : UserLogin
 }

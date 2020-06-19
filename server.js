@@ -8,24 +8,32 @@ const PORT = process.env.PORT || 4100
 const { loadSchemaBase } = require('./utils/loadScheme')
 const schemeBase = loadSchemaBase() // load scheme base GraphQL
 
+const servicePath = require('./servicesPath.json')
 
-// const services = {
-//     login:  require('./services/login/resolvers'),
-//     signUp: require('./services/signup/resolvers')
+// let 
+
+// for (const key2 in servicePath) {
+//     const pathService = Object.values(servicePath[key2])
+//     let keys = require(  pathService )
+//     console.log(keys)
 // }
 
-// let typeDefs = []
+const services = {
+    login:  require('./services/login/resolvers'),
+    signUp: require('./services/signup/resolvers')
+}
 
-// for (const key in services) {
-//    typeDefs = services.key
-//    console.log(typeDefs)
-// }
+let typeDefsd  = []
+let resolvers = []
 
-const { typeDefs: loginTypeDefs, resolvers: resolversLogin } = require('./services/login/resolvers')
-const { typeDefs: signupDef, resolvers: signupResolvers }    = require('./services/signup/resolvers')
+for (const key in services) {
+   typeDefsd  += services[key].typeDefs
+   resolvers  = services[key].resolvers
+}
+
 const server = new ApolloServer({
-    typeDefs:[ schemeBase, loginTypeDefs, signupDef ],
-   resolvers:[ resolversLogin , signupResolvers ]
+    typeDefs:[schemeBase,typeDefsd],
+   resolvers
 })
 
 server.applyMiddleware({ app })

@@ -8,6 +8,7 @@ module.exports = {
     typeDefs: schema,
     resolvers:{
         Query:queries,
-        Mutation:mutation
+        Mutation:mutation,
+       
     }
 }
