@@ -1,15 +1,14 @@
-type UserLogin{
-    _id: ID!,
-    name: String!
-    username: String!
+type AuthLogin {
     email: String!
-    avatar: String
+    token: String
+    path: String
 }
 
 extend type Query {
-    login: [UserLogin]
+    login: [AuthLogin]
 }
 
 extend type Mutation {
-    loginIn(email: String!, password: String!) : UserLogin
+    "Mutacion para login de usuario"
+    loginIn(email: String!, password: String!) : AuthLogin
 }
