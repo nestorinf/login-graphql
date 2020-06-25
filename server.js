@@ -8,6 +8,8 @@ const {getUser} = require('./utils/auth')
 const { typeDefsResolvers,loadSchemaBase } = require('./config/loadScheme')
 const { objectTypeDefs, objectResolvers } =  typeDefsResolvers()
 const schemeBase = loadSchemaBase()
+const Posts = require('./services/login/datasource/apiMongo')
+
 
 const server = new ApolloServer({
    typeDefs:[schemeBase,objectTypeDefs],
@@ -18,6 +20,11 @@ const server = new ApolloServer({
         const payload = getUser(token)
         return {
             payload
+        }
+    },
+    dataSources: () => {
+        return {
+            postsAPI: new Posts()
         }
     }
 })

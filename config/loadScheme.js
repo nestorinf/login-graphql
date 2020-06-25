@@ -15,7 +15,8 @@ const typeDefsResolvers = () => {
     for (const key2 in servicePath) {
         const pathService = Object.values(servicePath[key2])
         if( pathService[0] ) {
-            services = require(path.join(__dirname,'..',`services/${pathService[0]}`))
+                services = require(path.join(__dirname,'..',`services/${pathService[0]}/resolvers`))
+            // console.log(services)
             
             keyService = Object.keys(servicePath[key2])
             Objects[keyService] = services

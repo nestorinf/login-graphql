@@ -4,8 +4,16 @@ type AuthLogin {
     path: String
 }
 
+type posts {
+    userId: Int 
+    id: Int
+    title: String
+    body: String
+}
+
 extend type Query {
     login: [AuthLogin]
+    posts: [posts]
 }
 
 extend type Mutation {

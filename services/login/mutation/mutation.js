@@ -1,6 +1,6 @@
 
 'use strict'
-const { sign } = require('../../utils/auth')
+const { sign } = require('../../../utils/auth')
 const {UserInputError } = require('apollo-server-express')
 const moment = require('moment')
 const loginIn = (_,{email, password},context) => {

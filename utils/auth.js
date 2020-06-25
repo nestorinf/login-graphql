@@ -21,13 +21,15 @@ const isAuth = (context,next) => {
     
     try {
         const token   = authorization.split(" ")[1]
-        const payload = 12//verify(token)
+        const payload = verify(token)
         return payload
     } catch (err) {
         throw new Error('Not authenticated')
     }
     
 }
+
+const refreshToken = (token) => {}
 
 const getUser =  (token) =>{
 
