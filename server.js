@@ -11,6 +11,13 @@ const schemeBase = loadSchemaBase()
 const Posts = require('./services/login/datasource/apiMongo')
 
 
+const callDatasource = () => {
+    return {
+        postsAPI: new Posts()
+    }
+}
+
+
 const server = new ApolloServer({
    typeDefs:[schemeBase,objectTypeDefs],
     resolvers:objectResolvers,
@@ -22,11 +29,7 @@ const server = new ApolloServer({
             payload
         }
     },
-    dataSources: () => {
-        return {
-            postsAPI: new Posts()
-        }
-    }
+    dataSources: () => callDatasource()
 })
 
 server.applyMiddleware({ app })

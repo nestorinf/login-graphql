@@ -1,7 +1,7 @@
 "use strict"
 const jwt = require('jsonwebtoken')
 const moment = require('moment')
-const { AuthenticationError  } = require('apollo-server-express')
+const { AuthenticationError,UserInputError  } = require('apollo-server-express')
 const secretKey = 'KeySecret1'
 const sign = (payload) => {
     return jwt.sign(payload,secretKey,{expiresIn:'1m'})
@@ -31,6 +31,28 @@ const isAuth = (context,next) => {
 
 const refreshToken = (token) => {}
 
+const loginIn = async (email,password) => {
+   
+    if(!email || !password){
+        throw new UserInputError('Ingrese su usuario y clave')
+    }
+
+    try {
+        const payload = {
+            sub: email,
+            createdAt: moment().unix()
+        }
+        const token = sign(payload)
+        
+        return {
+            token,
+            email
+        }
+    } catch (error) {
+        throw new Error(error.name)
+    }
+}
+
 const getUser =  (token) =>{
 
     try {
@@ -45,5 +67,6 @@ const getUser =  (token) =>{
 module.exports = {
     sign,
     isAuth,
-    getUser
+    getUser,
+    loginIn
 }

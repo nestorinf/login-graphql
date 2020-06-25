@@ -10,7 +10,7 @@ for (const key in servicePath) {
         // const constructor = require(`../services/${path}`)
         // objectName(Obj)
         // let d = {
-            let names = servicePath[key].datasource[0].name 
+            
            object.push(
             require(`../services/${path}`)
            )

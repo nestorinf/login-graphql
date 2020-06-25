@@ -18,5 +18,5 @@ extend type Query {
 
 extend type Mutation {
     "Mutacion para login de usuario"
-    loginIn(email: String!, password: String!) : AuthLogin
+    login(email: String!, password: String!) : AuthLogin
 }
