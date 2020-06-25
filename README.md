@@ -12,6 +12,6 @@ mutation login($email: String!, $password: String!) {
 }
 
 {
-  "email":"ninfante@gmail.com",
+  "email":"example@gmail.com",
   "password":"12345"
 }
