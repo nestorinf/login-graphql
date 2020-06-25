@@ -1,0 +1,22 @@
+type AuthLogin {
+    email: String!
+    token: String
+    path: String
+}
+
+type posts {
+    userId: Int 
+    id: Int
+    title: String
+    body: String
+}
+
+extend type Query {
+    login: [AuthLogin]
+    posts: [posts]
+}
+
+extend type Mutation {
+    "Mutacion para login de usuario"
+    loginIn(email: String!, password: String!) : AuthLogin
+}

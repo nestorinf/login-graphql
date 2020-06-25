@@ -1,42 +1,32 @@
 'use strict'
 const express = require('express')
 const app = express()
-const bodyParse = require('body-parser')
+const bodyParser = require('body-parser')
 const { ApolloServer } = require('apollo-server-express')
 const PORT = process.env.PORT || 4100
-const fs = require('fs')
-const { loadSchemaBase } = require('./utils/loadScheme')
-const schemeBase = loadSchemaBase() // load scheme base GraphQL
+const {getUser} = require('./utils/auth')
+const { typeDefsResolvers,loadSchemaBase } = require('./config/loadScheme')
+const { objectTypeDefs, objectResolvers } =  typeDefsResolvers()
+const schemeBase = loadSchemaBase()
+const Posts = require('./services/login/datasource/apiMongo')
 
-const servicePath = require('./servicesPath.json')
-
-let Objects    = []
-let services   = []
-let keyService = []
-for (const key2 in servicePath) {
-    const pathService = Object.values(servicePath[key2])
-    
-    if( pathService[0] ) {
-        services = require(  pathService[0] )
-
-        keyService = Object.keys(servicePath[key2])
-        Objects[keyService] = services
-    }
-
-   
-}
-
-let typeDefsd  = []
-let resolvers = []
-
-for (const key in Objects) {
-   typeDefsd  += Objects[key].typeDefs
-   resolvers  = Objects[key].resolvers
-}
 
 const server = new ApolloServer({
-    typeDefs:[schemeBase,typeDefsd],
-   resolvers
+   typeDefs:[schemeBase,objectTypeDefs],
+    resolvers:objectResolvers,
+    context: ({ req }) => {
+        const authorization = req.headers["authorization"] || ""
+        const token = authorization.split(" ")[1]
+        const payload = getUser(token)
+        return {
+            payload
+        }
+    },
+    dataSources: () => {
+        return {
+            postsAPI: new Posts()
+        }
+    }
 })
 
 server.applyMiddleware({ app })
