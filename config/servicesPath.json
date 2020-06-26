@@ -1,15 +1,14 @@
 [
     {
-        "login":  "login/resolvers",
-        "datasource":[{
-                "name": "postsAPI",
-                "constructor":"Posts",
-                "baseURL":"https://jsonplaceholder.typicode.com",
+        "login": "login/resolvers",
+        "datasource": {
+            "postsAPI": {
+                "baseURL": "https://jsonplaceholder.typicode.com",
                 "path": "login/datasource/apiMongo"
             }
-        ]
+        }
     },
     {
         "signUp": "signup/resolvers"
-    }  
+    }
 ]

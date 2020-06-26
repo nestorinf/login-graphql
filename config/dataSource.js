@@ -1,35 +1,20 @@
-'use strict'
+"use strict";
+const servicePath = require("./servicesPath.json");
 
-const Posts = require('../services/login/datasource/apiMongo')
+const loadFile = (path) => {
+  return require(`../services/${path}`);
+};
 
-const servicePath = require('./servicesPath.json')
-let object = []
-for (const key in servicePath) {
-    if(servicePath[key].datasource) {
-        const {constructor,name, baseURL,path} = servicePath[key].datasource[0]
-        // const constructor = require(`../services/${path}`)
-        // objectName(Obj)
-        // let d = {
-            
-           object.push(
-            require(`../services/${path}`)
-           )
-           
-        // }
-        // cont++;
-    }
-}
-console.log( objectName(object) )
+const dataSourceAPIMongo = () => {
+  const { datasource } = servicePath[0];
+  const Posts = loadFile(datasource.postsAPI.path);
+  return new Posts(datasource.postsAPI.baseURL);
+};
 
-// const callDatasource = () => {
-//     return {
-//         postsAPI: new Posts()
-//     }
-// }
+const callDatasource = () => {
+  return {
+    postsAPI: dataSourceAPIMongo(),
+  };
+};
 
-function objectName(object) {
-    return object
-}
-
-
-// module.exports  = callDatasource
+module.exports = callDatasource;

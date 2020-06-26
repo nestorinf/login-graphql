@@ -1,9 +1,8 @@
 "use strict"
 const { RESTDataSource } = require('apollo-datasource-rest')
-const baseURL = 'https://jsonplaceholder.typicode.com'
 
 class Posts extends RESTDataSource {
-    constructor() {
+    constructor(baseURL) {
         super()
         this.baseURL = baseURL
     }

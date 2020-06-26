@@ -8,15 +8,7 @@ const {getUser} = require('./utils/auth')
 const { typeDefsResolvers,loadSchemaBase } = require('./config/loadScheme')
 const { objectTypeDefs, objectResolvers } =  typeDefsResolvers()
 const schemeBase = loadSchemaBase()
-const Posts = require('./services/login/datasource/apiMongo')
-
-
-const callDatasource = () => {
-    return {
-        postsAPI: new Posts()
-    }
-}
-
+const callDatasource = require('./config/dataSource')
 
 const server = new ApolloServer({
    typeDefs:[schemeBase,objectTypeDefs],
